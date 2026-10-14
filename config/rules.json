@@ -1,0 +1,46 @@
+{
+  "casino_domains": ["cassino-demo.example", "apostas-demo.example"],
+  "marketplace_domains": [
+    "shopee.com.br",
+    "shopee.com",
+    "aliexpress.com",
+    "aliexpress.com.br",
+    "shop.tiktok.com",
+    "tiktokshop.com"
+  ],
+  "shortener_domains": [
+    "bit.ly",
+    "tinyurl.com",
+    "t.co",
+    "s.shopee.com.br",
+    "s.click.aliexpress.com"
+  ],
+  "allowed_domains": [],
+  "allowed_links": [],
+  "affiliate_parameters": [
+    "ref",
+    "referral",
+    "affiliate",
+    "aff",
+    "aff_id",
+    "affiliate_id",
+    "invite",
+    "invite_code"
+  ],
+  "enabled": {
+    "casino": true,
+    "affiliate": true,
+    "marketplace": true,
+    "unknown_link": true,
+    "repeat": true,
+    "burst": true,
+    "link_burst": true
+  },
+  "repeat_threshold": 3,
+  "repeat_window_seconds": 120,
+  "burst_threshold": 6,
+  "burst_window_seconds": 10,
+  "link_burst_threshold": 5,
+  "link_burst_window_seconds": 30,
+  "retention_days": 7
+}

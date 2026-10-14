@@ -1,0 +1,21 @@
+#!/bin/sh
+set -eu
+zero=0000000000000000000000000000000000000000
+while read -r local_ref local_sha remote_ref remote_sha; do
+    # Aceita também entrada CRLF de ferramentas e testes no Windows.
+    remote_sha=$(printf '%s' "$remote_sha" | tr -d '\r')
+    if [ "$local_sha" = "$zero" ]; then
+        echo "Guardiao IA: exclusao de refs remotas bloqueada. Preserve o historico e consulte o usuario." >&2
+        exit 1
+    fi
+    if [ "$remote_ref" = "refs/heads/main" ] && [ "$remote_sha" != "$zero" ]; then
+        echo "Guardiao IA: atualizacoes diretas da main estao bloqueadas. Use Pull Request e aguarde revisao." >&2
+        exit 1
+    fi
+    if [ "$remote_sha" != "$zero" ]; then
+        if ! git merge-base --is-ancestor "$remote_sha" "$local_sha"; then
+            echo "Guardiao IA: push sem avanco de historico bloqueado. Faca fetch e confira a divergencia; nao reescreva o historico." >&2
+            exit 1
+        fi
+    fi
+done

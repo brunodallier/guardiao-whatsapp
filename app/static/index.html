@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#153d35" />
+    <title>Guardião IA · Comunidade em cuidado</title>
+    <link rel="icon" type="image/svg+xml" href="/static/mark.svg" />
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <div id="auth-screen" class="auth-screen" hidden>
+      <section class="auth-story">
+        <div class="brand">
+          <img src="/static/mark.svg" alt="" /><span
+            >guardião<span class="brand-ia">IA</span></span
+          >
+        </div>
+        <p class="eyebrow">ESPAÇO PARA BOAS CONVERSAS</p>
+        <h1>Sua comunidade.<br />Mais tranquila.</h1>
+        <p>
+          Um lugar para acompanhar, entender e cuidar das conversas que
+          importam.
+        </p>
+        <div class="auth-note">
+          ETAPA 01 <span>Ambiente local de simulação</span>
+        </div>
+      </section>
+      <main class="auth-form">
+        <p class="eyebrow">ACESSO ADMINISTRATIVO</p>
+        <h2 id="auth-title">Bem-vindo de volta.</h2>
+        <p id="auth-description"></p>
+        <form id="auth-form">
+          <label
+            >Usuário<input
+              name="username"
+              autocomplete="username"
+              minlength="3"
+              maxlength="80"
+              pattern="[a-zA-Z0-9_.@-]+"
+              required
+              placeholder="Seu usuário" /></label
+          ><label
+            >Senha<input
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              minlength="10"
+              maxlength="200"
+              required
+              placeholder="Pelo menos 10 caracteres" /></label
+          ><button class="button primary" id="auth-submit" type="submit">
+            Entrar no painel
+          </button>
+          <p id="auth-error" role="alert" class="error"></p>
+        </form>
+        <p class="small muted">
+          Seus dados ficam no SQLite local. Nenhuma conexão com o WhatsApp ou
+          serviço de IA.
+        </p>
+      </main>
+    </div>
+    <div id="app-shell" class="shell" hidden>
+      <aside class="sidebar">
+        <a class="brand" href="#painel" aria-label="Guardião IA, início"
+          ><img src="/static/mark.svg" alt="" /><span
+            >guardião<span class="brand-ia">IA</span></span
+          ></a
+        >
+        <p class="nav-caption">SUA COMUNIDADE</p>
+        <nav id="nav" aria-label="Navegação principal"></nav>
+        <div class="sidebar-bottom">
+          <div class="local-state">
+            <span class="status-dot"></span>Ambiente de simulação
+          </div>
+          <p>Ações apenas simuladas.<br />Você mantém o controle.</p>
+          <button class="account" id="logout" title="Sair da conta">
+            <span class="avatar">AD</span
+            ><span
+              ><strong id="account-name">Administrador</strong
+              ><small>Sair da conta ↗</small></span
+            >
+          </button>
+        </div>
+      </aside>
+      <div class="workspace">
+        <header class="topbar">
+          <span class="breadcrumb"
+            >Comunidade <span>/</span>
+            <strong id="breadcrumb">Visão geral</strong></span
+          >
+          <div class="topbar-right">
+            <span class="environment">LOCAL · ETAPA 01</span
+            ><span id="today"></span>
+          </div>
+        </header>
+        <main id="main" tabindex="-1"></main>
+        <footer>
+          Guardião IA <span>Feito para cuidar de pessoas e conversas.</span
+          ><span>Sem conexão externa</span>
+        </footer>
+      </div>
+    </div>
+    <div id="toast" class="toast" role="status" hidden></div>
+    <dialog id="dialog"><div id="dialog-content"></div></dialog>
+  </body>
+</html>

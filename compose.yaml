@@ -1,0 +1,15 @@
+services:
+  guardiao:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      DATABASE_PATH: /app/data/guardiao.sqlite3
+      COOKIE_SECURE: "false"
+      ALLOWED_HOSTS: localhost,127.0.0.1
+      SEED_DEMO: "true"
+    volumes:
+      - guardiao_data:/app/data
+    restart: unless-stopped
+volumes:
+  guardiao_data:
