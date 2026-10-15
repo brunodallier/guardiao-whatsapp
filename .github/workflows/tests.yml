@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      DATABASE_PATH: ${{ runner.temp }}/guardiao-ci.sqlite3
+      DATABASE_PATH: data/guardiao-ci.sqlite3
       SEED_DEMO: "false"
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4

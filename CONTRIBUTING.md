@@ -16,6 +16,8 @@ Hooks e configurações locais não são ativados automaticamente por `git clone
 
 Os hooks são uma proteção local e não substituem regras de proteção no GitHub. Outros clones e alterações pela interface web precisam seguir esta mesma política. Não usar `--no-verify` nem desligar os hooks para contornar uma rejeição. Uma rejeição exige revisar o estado do Git e escolher um fluxo que preserve o histórico.
 
+No GitHub, a `main` está protegida: exige Pull Request e a verificação `tests` aprovada com a branch atualizada. A proteção inclui administradores e bloqueia force push e exclusão. Auto-merge está desabilitado. A revisão e o merge são manuais pelo proprietário; não é exigida a aprovação de outro colaborador, para permitir o fluxo de um único administrador. O agente não pode aprovar nem integrar PRs por conta própria.
+
 ## Começar uma funcionalidade autorizada
 
 ```powershell
