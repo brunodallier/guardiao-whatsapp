@@ -1,6 +1,8 @@
 # Guardião IA
 
-Primeira etapa de uma plataforma local para administrar comunidades. Backend Python/FastAPI, SQLite e frontend HTML/CSS/JavaScript sem build, CDN ou conexão externa. O nome IA representa o projeto futuro; a classificação atual usa somente regras.
+Plataforma local para administrar comunidades. Esta branch adiciona a Etapa 02 (Histórico e Inteligência da Comunidade), preservando a Etapa 01. Backend Python/FastAPI, SQLite e frontend HTML/CSS/JavaScript sem build, CDN ou conexão externa. A análise atual usa regras e processamento de texto local, sem APIs de IA.
+
+Veja o [guia da Etapa 02](docs/ETAPA02.md) para importação, privacidade, retenção, relatórios e limitações.
 
 ## Versionamento
 
@@ -99,7 +101,7 @@ O painel modifica a configuração no SQLite. Editar `config/rules.json` altera 
 
 O banco inicial fica em `data/guardiao.sqlite3`. A chave de sessão é gerada em `data/session.key` quando `SESSION_SECRET` está vazio. A senha usa hash com salt aleatório; nenhuma credencial foi incluída no código. `.env`, banco e chave estão ignorados pelo Git. Para backups coerentes, pare o servidor antes de copiar a pasta `data`; SQLite usa WAL. Cópias de backup são independentes da retenção e da exclusão pelo painel.
 
-Existe uma única conta administrativa nesta etapa. Recuperação de senha e múltiplos administradores ainda não estão implementados. Mantenha o acesso local. A retenção remove registros logicamente do SQLite; não promete eliminação forense dos bytes nem de backups. Todas as mensagens desta etapa são simuladas; a importação de conversas reais exige definir consentimento, acesso e política de armazenamento na próxima etapa.
+Existe uma única conta administrativa. Recuperação de senha e múltiplos administradores ainda não estão implementados. Mantenha o acesso local. A retenção remove registros logicamente do SQLite; não promete eliminação forense dos bytes nem de backups. A Etapa 02 permite importar conversas: use os controles e as limitações de privacidade descritos em `docs/ETAPA02.md`. Os dados do simulador permanecem separados das conversas importadas.
 
 ## Docker preparado, sem deploy
 
@@ -118,6 +120,6 @@ Antes da VPS, configure um segredo forte, HTTPS, `COOKIE_SECURE=true`, o hostnam
 
 ## Próxima etapa
 
-Não implementados: conexão experimental com WhatsApp, validação de suporte a Comunidades, monitoramento 24h, Telegram, processamento de imagem/vídeo, importação de exportações, relatórios Markdown/JSONL, identificação de dúvidas frequentes, agendamentos, respostas por menção/comandos, IA opcional e hospedagem. A integração e as capacidades de bibliotecas oficiais ou não oficiais serão avaliadas separadamente. Nenhuma ação real de exclusão, advertência ou remoção está disponível.
+Não implementados: conexão experimental com WhatsApp, validação de suporte a Comunidades, monitoramento 24h, Telegram, processamento de imagem/vídeo, agendamentos, respostas por menção/comandos, IA opcional e hospedagem. A integração e as capacidades de bibliotecas oficiais ou não oficiais serão avaliadas separadamente. Nenhuma ação real de exclusão de mensagens no WhatsApp, advertência ou remoção de participantes está disponível.
 
 Referências de implementação: [documentação oficial do FastAPI](https://fastapi.tiangolo.com/) e [middleware de sessões do Starlette](https://starlette.dev/middleware/#sessionmiddleware).

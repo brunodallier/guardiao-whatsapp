@@ -1,6 +1,7 @@
 import json
 import sqlite3
 import time
+import unicodedata
 from contextlib import contextmanager
 from pathlib import Path
 
@@ -11,6 +12,7 @@ from app.config import ROOT
 def connect(path):
     conn = sqlite3.connect(path, timeout=15)
     conn.row_factory = sqlite3.Row
+    conn.create_function("search_fold", 1, lambda value: "".join(c for c in unicodedata.normalize("NFKD", (value or "").casefold()) if not unicodedata.combining(c)))
     conn.execute("PRAGMA foreign_keys=ON")
     try:
         yield conn
@@ -37,6 +39,8 @@ def initialize(path, seed_demo=True):
         """)
         defaults = (ROOT / "config/rules.json").read_text(encoding="utf-8")
         conn.execute("INSERT OR IGNORE INTO settings VALUES ('rules', ?)", (defaults,))
+        from app.community.storage import migrate
+        migrate(conn)
         if seed_demo and not conn.execute("SELECT 1 FROM settings WHERE key='demo_seeded'").fetchone():
             from app.services.messages import simulate
             for name, description, count in [("IA · Primeiros passos", "Dúvidas iniciais e boas-vindas · grupo fictício", 240), ("IA · Plataformas", "Trocas sobre plataformas de treinamento · grupo fictício", 235), ("IA · Comunidade", "Experiências, novidades e suporte · grupo fictício", 225)]:

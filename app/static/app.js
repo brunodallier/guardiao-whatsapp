@@ -33,6 +33,8 @@ const paths = {
   regras: "Regras de moderação",
   simulador: "Simulador",
   ocorrencias: "Ocorrências",
+  conversas: "Histórico de conversas",
+  inteligencia: "Inteligência da comunidade",
 };
 const iconPaths = {
   painel: "M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z",
@@ -43,6 +45,8 @@ const iconPaths = {
   regras: "M4 7h16 M4 17h16 M8 4v6 M16 14v6",
   simulador: "m8 5 11 7-11 7z",
   ocorrencias: "M12 3 2 21h20z M12 9v5 M12 17h.01",
+  conversas: "M4 4h16v13H8l-4 4z M8 8h8 M8 12h6",
+  inteligencia: "M4 20h16 M7 16V9 M12 16V4 M17 16v-5",
   plus: "M12 5v14 M5 12h14",
   arrow: "M5 12h14 M13 6l6 6-6 6",
 };
@@ -214,11 +218,14 @@ async function navigate() {
       regras: rulesPage,
       simulador: simulatorPage,
       ocorrencias: historyPageView,
+      conversas: () => Community.historyPage(),
+      inteligencia: () => Community.intelligencePage(),
     };
     const html = await renderers[currentPage]();
     if (version !== navigationVersion) return;
     $("#main").innerHTML = html;
     wirePage();
+    if (window.Community) Community.wire(currentPage);
   } catch (error) {
     if (version === navigationVersion)
       $("#main").innerHTML = empty(
@@ -609,8 +616,10 @@ $("#dialog").addEventListener("click", (event) => {
       $("#dialog").close();
   }
 });
-boot().catch((error) => {
-  $("#auth-screen").hidden = false;
-  $("#auth-error").textContent =
-    "Não foi possível acessar o servidor: " + error.message;
+document.addEventListener("DOMContentLoaded", () => {
+  boot().catch((error) => {
+    $("#auth-screen").hidden = false;
+    $("#auth-error").textContent =
+      "Não foi possível acessar o servidor: " + error.message;
+  });
 });
