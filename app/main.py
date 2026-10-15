@@ -19,6 +19,8 @@ from app.db import connect, initialize, rules_from, affiliates_from, prune
 from app.models import Credentials, GroupInput, AffiliateInput, RulesInput, MessageInput, DeleteHistoryInput
 from app.security import hash_password, verify_password
 from app.services.messages import simulate
+from app.community.routes import register_community_routes
+from app.community.storage import prune_conversations
 
 
 def create_app(settings=None):
@@ -29,11 +31,16 @@ def create_app(settings=None):
     def clean_history():
         with connect(settings.database_path) as conn:
             prune(conn)
+            prune_conversations(conn)
 
     async def maintenance():
+        last_database_cleanup = time.monotonic()
         while True:
-            await asyncio.sleep(3600)
-            await asyncio.to_thread(clean_history)
+            await asyncio.sleep(5)
+            app.state.conversation_previews.cleanup()
+            if time.monotonic() - last_database_cleanup >= 3600:
+                await asyncio.to_thread(clean_history)
+                last_database_cleanup = time.monotonic()
 
     @asynccontextmanager
     async def lifespan(app):
@@ -45,7 +52,7 @@ def create_app(settings=None):
         with suppress(asyncio.CancelledError):
             await task
 
-    app = FastAPI(title="Guardião IA · API local", version="0.1.0", lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
+    app = FastAPI(title="Guardião IA · API local", version="0.2.0", lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
     app.add_middleware(SessionMiddleware, secret_key=settings.secret(), session_cookie="guardiao_session", same_site="strict", https_only=settings.cookie_secure, max_age=28800)
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=list(settings.allowed_hosts))
 
@@ -281,6 +288,7 @@ def create_app(settings=None):
                 deleted = conn.execute("DELETE FROM messages WHERE group_id=?", (payload.group_id,)).rowcount
         return {"deleted": deleted}
 
+    register_community_routes(app, settings, admin)
     return app
 
 

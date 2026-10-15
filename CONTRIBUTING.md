@@ -1,6 +1,6 @@
 # Desenvolvimento com branches e Pull Requests
 
-`main` é a base estável. A Etapa 01 é publicada como o commit inicial; qualquer trabalho posterior acontece em uma branch própria. A branch `feat/historico-conversas` parte desse marco e aguarda autorização para começar a Etapa 02.
+`main` é a base estável. A Etapa 01 foi publicada como o commit inicial; qualquer trabalho posterior acontece em uma branch própria. A branch `feat/historico-conversas` foi atualizada com a `main` após o PR nº 1 e concentra o desenvolvimento autorizado da Etapa 02. Sua integração depende de novo PR e revisão manual.
 
 ## Preparar uma cópia local
 

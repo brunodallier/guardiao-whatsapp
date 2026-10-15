@@ -1,4 +1,4 @@
-name: Testes da Etapa 01
+name: Testes do Guardião IA
 
 on:
   pull_request:
@@ -35,4 +35,5 @@ jobs:
       - name: Verificar JavaScript e diff
         run: |
           node --check app/static/app.js
+          node --check app/static/community.js
           git diff --check

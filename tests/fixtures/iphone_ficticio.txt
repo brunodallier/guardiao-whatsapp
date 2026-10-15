@@ -1,0 +1,6 @@
+‎[14/10/2026, 10:00:00] As mensagens e chamadas são protegidas com criptografia de ponta a ponta.
+[14/10/2026, 10:01:02] Pessoa Fictícia A: Como faço para sacar na HUB?
+Esta é uma segunda linha fictícia.
+[14/10/2026, 10:02:03] Pessoa Fictícia B: ‎<Media omitted>
+[14/10/2026, 10:03:04] Pessoa Fictícia C: Como vejo tarefas no Crowtado?
+[14/10/2026, 10:04:05] Pessoa Fictícia D: Mensagem para Pessoa Fictícia A: envie para contato@example.com.
